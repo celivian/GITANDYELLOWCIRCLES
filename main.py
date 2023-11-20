@@ -4,17 +4,15 @@ import random
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor, QPixmap, QPen
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from ui import *
 
 SCREEN_SIZE = [400, 400]
 
 
-class Example(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-        self.initUI()
-
-    def initUI(self):
+        self.setupUi(self)
         self.setFixedSize(800, 650)
         self.pushButton.clicked.connect(self.generateyellowcircle)
 
@@ -22,11 +20,12 @@ class Example(QMainWindow):
         x = random.randint(0, 850)
         y = random.randint(0, 500)
         diam = random.randint(30, 200)
+        color = QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         canvas = QPixmap(800, 600)
         self.label.setPixmap(canvas)
         circle = QPainter(self.label.pixmap())
         pen = QPen()
-        pen.setColor(QColor(255, 255, 0))
+        pen.setColor(color)
         pen.setWidth(3)
         circle.setPen(pen)
         circle.drawEllipse(x, y, diam, diam)
